@@ -1,36 +1,42 @@
-require("dotenv").config();
-const { sequelize } = require("./models");
-const User = require("./models/user");
+require("dotenv").config()
+const { sequelize, User } = require("./models")
 
 const seedAdmin = async () => {
   try {
-    await sequelize.authenticate();
-    console.log("Conectado a la base de datos.");
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@admin.com"
+    const adminPassword = process.env.ADMIN_PASSWORD || "admin"
 
-    // Verifica si ya existe el admin
-    const adminExists = await User.findOne({ where: { email: "admin@admin.com" } });
-    
+    if (typeof sequelize.ensureDatabase === "function") {
+      await sequelize.ensureDatabase()
+    }
+
+    await sequelize.authenticate()
+    console.log("Conectado a la base de datos.")
+
+    await sequelize.sync({ alter: process.env.DB_SYNC_ALTER === "true" })
+
+    const adminExists = await User.findOne({ where: { email: adminEmail } })
+
     if (adminExists) {
-      console.log("El usuario admin@admin.com ya existe.");
-      // Actualizamos su rol por si acaso no era admin
-      adminExists.rol = "admin";
-      adminExists.password = "admin";
-      adminExists.changed("password", true);
-      await adminExists.save();
-      console.log("Rol y contrasena actualizados exitosamente.");
+      console.log(`El usuario ${adminEmail} ya existe.`)
+      adminExists.rol = "admin"
+      adminExists.password = adminPassword
+      adminExists.changed("password", true)
+      await adminExists.save()
+      console.log("Rol y contrasena actualizados exitosamente.")
     } else {
       await User.create({
-        email: "admin@admin.com",
-        password: "admin", // Usa la contraseña que desees
-        rol: "admin"
-      });
-      console.log("Usuario admin creado: admin@admin.com / admin");
+        email: adminEmail,
+        password: adminPassword,
+        rol: "admin",
+      })
+      console.log(`Usuario admin creado: ${adminEmail}`)
     }
   } catch (error) {
-    console.error("Error al crear el admin:", error);
+    console.error("Error al crear el admin:", error)
   } finally {
-    process.exit(0);
+    process.exit(0)
   }
-};
+}
 
-seedAdmin();
+seedAdmin()

@@ -3,7 +3,7 @@ require("dotenv").config()
 const cors = require("cors")
 const swaggerUi = require("swagger-ui-express")
 const { errorHandler } = require("./middleware/error-handler")
-const { sequelize } = require("./models")
+const { sequelize, User } = require("./models")
 const swaggerSpec = require("./config/swagger")
 
 const app = express()
@@ -47,13 +47,46 @@ app.use("/api/dashboard", require("./routes/dashboard.routes"))
 
 app.use(errorHandler)
 
+const bootstrapAdmin = async () => {
+  const email = process.env.ADMIN_EMAIL
+  const password = process.env.ADMIN_PASSWORD
+
+  if (!email || !password) {
+    return
+  }
+
+  const [admin, created] = await User.findOrCreate({
+    where: { email },
+    defaults: {
+      email,
+      password,
+      rol: "admin",
+    },
+  })
+
+  if (!created) {
+    admin.rol = "admin"
+    admin.password = password
+    admin.changed("password", true)
+    await admin.save()
+  }
+
+  console.log(`Admin inicial listo: ${email}`)
+}
+
 const start = async () => {
   try {
+    if (typeof sequelize.ensureDatabase === "function") {
+      await sequelize.ensureDatabase()
+    }
+
     await sequelize.authenticate()
     console.log("Conexion a BD establecida")
 
     await sequelize.sync({ alter: process.env.DB_SYNC_ALTER === "true" })
     console.log("Modelos sincronizados")
+
+    await bootstrapAdmin()
 
     app.listen(PORT, () => {
       console.log("Servidor disponible en el puerto: " + PORT)
