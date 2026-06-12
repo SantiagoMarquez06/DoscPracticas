@@ -125,15 +125,15 @@ El compose levanta `sqlserver`, `backend` y `frontend`. El backend crea la base 
 - `/docs` a Swagger del backend.
 - `/api-docs.json` al esquema OpenAPI.
 
-Si quieres conectarte desde SSMS, usa:
+Si corres Docker local con `docker-compose.local.yml`, puedes conectarte desde SSMS con:
 
 ```text
-Servidor: IP_O_DOMINIO_DE_LA_VM,1433
+Servidor: localhost,1433
 Usuario: sa
 Contrasena: valor de DB_PASSWORD
 ```
 
-En una VM Ubuntu debes permitir el puerto `1433` en el firewall solo si necesitas acceso remoto por SSMS.
+En Coolify/VM, SQL Server queda interno para evitar conflictos de puertos. No publiques `1433` salvo que sepas que necesitas acceso externo y tengas firewall/seguridad configurados.
 
 ## Rutas
 
@@ -171,6 +171,8 @@ SQLSERVER_PORT=1433
 DB_CONNECT_RETRIES=30
 DB_CONNECT_RETRY_DELAY_MS=5000
 ```
+
+`SQLSERVER_PORT` solo se usa con `docker-compose.local.yml`; en Coolify no hace falta publicarlo.
 
 Variables utiles:
 

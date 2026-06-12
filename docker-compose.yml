@@ -5,8 +5,8 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_PID: ${MSSQL_PID:-Express}
       MSSQL_SA_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env or Coolify variables}
-    ports:
-      - "${SQLSERVER_PORT:-1433}:1433"
+    expose:
+      - "1433"
     volumes:
       - sqlserver-data:/var/opt/mssql
     networks:
