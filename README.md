@@ -7,7 +7,7 @@ Proyecto React + backend Node/Express para gestion de productos, categorias, cli
 - Node.js 20 o superior
 - npm o Bun
 - Docker y Docker Compose para despliegue local con contenedores
-- SQL Server si ejecutas el backend fuera de Docker
+- SQL Server / SSMS para la base de datos
 
 ## Frontend local
 
@@ -61,14 +61,35 @@ bun run build
 ## Docker Compose
 
 1. Copia `.env.example` a `.env`.
-2. Completa al menos `DB_PASSWORD` y `JWT_SECRET`.
-3. Levanta los servicios:
+2. Completa al menos `DB_USER`, `DB_PASSWORD` y `JWT_SECRET`.
+3. Si SQL Server corre en tu Windows y Docker Desktop levanta los contenedores, usa:
+
+```env
+DB_HOST=host.docker.internal
+DB_PORT=1433
+DB_NAME=tienda
+DB_USER=tu_usuario_sql_server
+DB_PASSWORD=tu_password_sql_server
+DB_DIALECT=mssql
+DB_ENCRYPT=false
+DB_TRUST_SERVER_CERTIFICATE=true
+```
+
+Si usas una instancia nombrada como `SQLEXPRESS`, puedes usar:
+
+```env
+DB_HOST=host.docker.internal
+DB_INSTANCE=SQLEXPRESS
+DB_PORT=
+```
+
+4. Levanta los servicios:
 
 ```bash
 docker compose up --build
 ```
 
-El frontend queda publicado en el puerto configurado por `FRONTEND_PORT` y Nginx envia:
+El compose levanta solo `backend` y `frontend`. No levanta PostgreSQL ni SQL Server; la base de datos es tu SQL Server existente de SSMS. El frontend queda publicado en el puerto configurado por `FRONTEND_PORT` y Nginx envia:
 
 - `/api/*` al backend Node.
 - `/docs` a Swagger del backend.
@@ -92,20 +113,25 @@ En Coolify asigna el dominio publico solo al servicio `frontend`, puerto `80`. N
 Variables minimas en Coolify:
 
 ```env
+DB_HOST=
+DB_PORT=1433
+DB_NAME=tienda
+DB_USER=
 DB_PASSWORD=
+DB_DIALECT=mssql
+DB_ENCRYPT=false
+DB_TRUST_SERVER_CERTIFICATE=true
 JWT_SECRET=
 ```
 
 Variables utiles:
 
 ```env
-DB_NAME=
-DB_USER=
-DB_PORT_EXTERNAL=
 API_PORT=
 NODE_ENV=
 CORS_ORIGIN=
 FRONTEND_PORT=
+DB_INSTANCE=
 ```
 
 ## Antes de commitear
