@@ -7,9 +7,19 @@ Proyecto React + backend Node/Express para gestion de productos, categorias, cli
 - Node.js 20 o superior
 - npm o Bun
 - Docker y Docker Compose para despliegue local con contenedores
-- PostgreSQL si ejecutas el backend fuera de Docker
+- SQL Server si ejecutas el backend fuera de Docker
 
 ## Frontend local
+
+El frontend usa rutas relativas bajo `/api`. En desarrollo, Vite debe reenviar esas rutas al backend local.
+
+1. Crea `frontend-app/.env`:
+
+```env
+VITE_DEV_API_PROXY_TARGET=http://localhost:3000
+```
+
+2. Instala dependencias y levanta Vite:
 
 ```bash
 cd frontend-app
@@ -25,7 +35,14 @@ bun install
 bun run dev
 ```
 
-El cliente HTTP usa `baseURL: "/api"` por defecto. Si necesitas que Vite reenvie `/api`, `/docs` y `/api-docs.json` a un backend local durante desarrollo, define `VITE_DEV_API_PROXY_TARGET` en tu entorno antes de iniciar Vite.
+La aplicacion queda disponible en `http://localhost:5173`. El backend debe estar corriendo en `http://localhost:3000` para que el login y las pantallas administrativas consuman `/api` correctamente.
+
+Credenciales de desarrollo, si corriste `node seedAdmin.js` en el backend:
+
+```text
+Email: admin@admin.com
+Password: admin
+```
 
 ## Build del frontend
 
