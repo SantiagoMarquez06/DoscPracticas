@@ -47,6 +47,8 @@ app.use("/api/dashboard", require("./routes/dashboard.routes"))
 
 app.use(errorHandler)
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
 const bootstrapAdmin = async () => {
   const email = process.env.ADMIN_EMAIL
   const password = process.env.ADMIN_PASSWORD
@@ -74,14 +76,33 @@ const bootstrapAdmin = async () => {
   console.log(`Admin inicial listo: ${email}`)
 }
 
+const connectDatabase = async () => {
+  const retries = Number(process.env.DB_CONNECT_RETRIES || 30)
+  const delayMs = Number(process.env.DB_CONNECT_RETRY_DELAY_MS || 5000)
+
+  for (let attempt = 1; attempt <= retries; attempt += 1) {
+    try {
+      if (typeof sequelize.ensureDatabase === "function") {
+        await sequelize.ensureDatabase()
+      }
+
+      await sequelize.authenticate()
+      console.log("Conexion a BD establecida")
+      return
+    } catch (error) {
+      if (attempt === retries) {
+        throw error
+      }
+
+      console.log(`BD no disponible, reintento ${attempt}/${retries} en ${delayMs}ms`)
+      await wait(delayMs)
+    }
+  }
+}
+
 const start = async () => {
   try {
-    if (typeof sequelize.ensureDatabase === "function") {
-      await sequelize.ensureDatabase()
-    }
-
-    await sequelize.authenticate()
-    console.log("Conexion a BD establecida")
+    await connectDatabase()
 
     await sequelize.sync({ alter: process.env.DB_SYNC_ALTER === "true" })
     console.log("Modelos sincronizados")

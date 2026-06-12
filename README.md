@@ -28,6 +28,8 @@ DB_DIALECT=mssql
 DB_ENCRYPT=false
 DB_TRUST_SERVER_CERTIFICATE=true
 DB_SYNC_ALTER=false
+DB_CONNECT_RETRIES=30
+DB_CONNECT_RETRY_DELAY_MS=5000
 JWT_SECRET=un_secreto_local
 ADMIN_EMAIL=admin@admin.com
 ADMIN_PASSWORD=admin
@@ -107,6 +109,8 @@ DB_TRUST_SERVER_CERTIFICATE=true
 JWT_SECRET=cambia-este-secreto
 ADMIN_EMAIL=admin@admin.com
 ADMIN_PASSWORD=Admin123..
+DB_CONNECT_RETRIES=30
+DB_CONNECT_RETRY_DELAY_MS=5000
 ```
 
 4. Para Docker local, levanta los servicios con el override local:
@@ -164,6 +168,8 @@ ADMIN_EMAIL=admin@admin.com
 ADMIN_PASSWORD=
 MSSQL_PID=Express
 SQLSERVER_PORT=1433
+DB_CONNECT_RETRIES=30
+DB_CONNECT_RETRY_DELAY_MS=5000
 ```
 
 Variables utiles:
