@@ -109,13 +109,13 @@ ADMIN_EMAIL=admin@admin.com
 ADMIN_PASSWORD=Admin123..
 ```
 
-4. Levanta los servicios:
+4. Para Docker local, levanta los servicios con el override local:
 
 ```bash
-docker compose up --build
+docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 ```
 
-El compose levanta `sqlserver`, `backend` y `frontend`. El backend crea la base `tienda` si no existe, sincroniza las tablas con Sequelize y crea/actualiza el admin inicial cuando `ADMIN_EMAIL` y `ADMIN_PASSWORD` tienen valor. El frontend queda publicado en el puerto configurado por `FRONTEND_PORT` y Nginx envia:
+El compose levanta `sqlserver`, `backend` y `frontend`. El backend crea la base `tienda` si no existe, sincroniza las tablas con Sequelize y crea/actualiza el admin inicial cuando `ADMIN_EMAIL` y `ADMIN_PASSWORD` tienen valor. En Docker local, `docker-compose.local.yml` publica el frontend en el puerto configurado por `FRONTEND_PORT`. Nginx envia:
 
 - `/api/*` al backend Node.
 - `/docs` a Swagger del backend.
@@ -144,7 +144,9 @@ En una VM Ubuntu debes permitir el puerto `1433` en el firewall solo si necesita
 
 ## Coolify
 
-En Coolify asigna el dominio publico solo al servicio `frontend`, puerto `80`. No publiques un dominio independiente para `backend`; el contenedor frontend proxya las rutas `/api` y `/docs` hacia el servicio interno `backend:3000`.
+En Coolify asigna el dominio publico solo al servicio `frontend`, puerto interno `80`. No publiques un dominio independiente para `backend`; el contenedor frontend proxya las rutas `/api` y `/docs` hacia el servicio interno `backend:3000`.
+
+No configures `FRONTEND_PORT=80` en Coolify ni hagas bind manual del puerto `80` del host, porque ese puerto lo usa el proxy de Coolify. El archivo principal `docker-compose.yml` usa `expose: 80` para que Coolify enrute internamente.
 
 Variables minimas en Coolify:
 
@@ -169,7 +171,6 @@ Variables utiles:
 ```env
 NODE_ENV=
 CORS_ORIGIN=
-FRONTEND_PORT=
 DB_INSTANCE=
 ```
 
@@ -178,4 +179,4 @@ DB_INSTANCE=
 - Verifica que no exista un archivo `.env` versionado.
 - Revisa que `DB_PASSWORD`, `JWT_SECRET`, tokens y credenciales reales no esten en git.
 - Ejecuta `npm run build` o `bun run build` dentro de `frontend-app`.
-- Levanta `docker compose up --build` y revisa `/`, `/login`, `/admin` y `/docs`.
+- Levanta `docker compose -f docker-compose.yml -f docker-compose.local.yml up --build` y revisa `/`, `/login`, `/admin` y `/docs`.
