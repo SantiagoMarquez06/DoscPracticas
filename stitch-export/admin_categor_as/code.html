@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ToolForge | Categories Management</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "primary": "#9d4300",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "secondary-fixed": "#dae2fd",
+                        "background": "#f7f9fb",
+                        "on-background": "#191c1e",
+                        "primary-fixed": "#ffdbca",
+                        "on-primary-container": "#582200",
+                        "surface-tint": "#9d4300",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "outline": "#8c7164",
+                        "primary-fixed-dim": "#ffb690",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f2f4f6",
+                        "outline-variant": "#e0c0b1",
+                        "secondary": "#565e74",
+                        "primary-container": "#f97316",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface-bright": "#f7f9fb",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#783200",
+                        "on-primary-fixed": "#341100",
+                        "surface-container": "#eceef0",
+                        "tertiary-container": "#8c9cb4",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "inverse-surface": "#2d3133",
+                        "tertiary": "#505f76",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#584237",
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-container": "#243348",
+                        "surface": "#f7f9fb",
+                        "inverse-primary": "#ffb690",
+                        "secondary-container": "#dae2fd",
+                        "on-secondary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "container-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "code": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "code": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .bento-item {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- Sidebar Navigation -->
+<aside class="h-full w-64 fixed left-0 top-0 bg-secondary dark:bg-on-background border-r border-outline-variant dark:border-outline flex flex-col p-md gap-md z-50">
+<div class="mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Admin Console</h1>
+<p class="font-label-md text-label-md text-secondary-fixed-dim">Management Suite</p>
+</div>
+<nav class="flex-1 flex flex-col gap-sm">
+<!-- Dashboard -->
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<!-- Inventory -->
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-primary-fixed font-bold bg-on-secondary-fixed-variant/20 rounded-lg transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Inventory
+            </a>
+<!-- Orders -->
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+                Orders
+            </a>
+<!-- Customers -->
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined">group</span>
+                Customers
+            </a>
+<!-- Analytics -->
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+                Analytics
+            </a>
+<!-- Settings -->
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto border-t border-outline-variant/30 pt-md flex flex-col gap-sm">
+<button class="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-md rounded-lg flex items-center justify-center gap-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                Add New Tool
+            </button>
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 p-xl min-h-screen">
+<!-- Header -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Categories Management</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Organize and manage the tool catalog hierarchy.</p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-lg py-md rounded-lg flex items-center gap-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">category</span>
+                Create New Category
+            </button>
+</header>
+<!-- Stats Overview (Subtle Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-xl">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<p class="font-label-md text-label-md text-on-surface-variant">Total Categories</p>
+<p class="font-display-lg text-display-lg text-primary">12</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<p class="font-label-md text-label-md text-on-surface-variant">Active Tools</p>
+<p class="font-display-lg text-display-lg text-secondary">2,480</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<p class="font-label-md text-label-md text-on-surface-variant">Avg. Items/Cat</p>
+<p class="font-display-lg text-display-lg text-secondary">206</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<p class="font-label-md text-label-md text-on-surface-variant">In-Active</p>
+<p class="font-display-lg text-display-lg text-error">0</p>
+</div>
+</div>
+<!-- Category Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Category Card: Power Tools -->
+<div class="bento-item bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="h-40 bg-surface-container relative overflow-hidden">
+<img alt="Power Tools" class="w-full h-full object-cover grayscale contrast-125" data-alt="A professional close-up shot of heavy-duty industrial power tools like drills and grinders arranged neatly on a dark metal workbench. The lighting is dramatic and cool-toned, emphasizing the metallic textures and rugged build of the equipment. The aesthetic is clean and corporate, reflecting a modern workspace for professional trade experts." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCecLc_XEqvyK_91M3wcm_uM8Qx2D3ze4qqznQg-paIinx7wqypCBckuWr7VPxtT6fwlGcjFW3AETImx61ON8UB34lxNj5H2eFlafErgNIK8NQ8Z0EWlhsxP7nqI4LW2xZC9purcC0O949306E95qcFdlAoNaO-FW15B5Lcswrh0yK4PQTI3P6WAtMyY52YtVrKO8TirWgGiIx_Dbp3DxINHqhN0MasylGnIYwArZN9jBJdAffAm5_67A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/60 to-transparent"></div>
+<div class="absolute bottom-md left-md">
+<span class="bg-primary-container text-on-primary-container text-xs font-bold px-sm py-1 rounded uppercase tracking-wider">High Demand</span>
+</div>
+</div>
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-on-background">Power Tools</h3>
+<span class="text-on-surface-variant font-label-md text-label-md">842 Items</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">Electric drills, impact drivers, saws, and pneumatic industrial equipment.</p>
+<div class="flex gap-sm mt-auto">
+<button class="flex-1 bg-secondary text-on-secondary font-label-md text-label-md py-sm rounded hover:bg-on-background transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                        </button>
+<button class="px-md border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Category Card: Hand Tools -->
+<div class="bento-item bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="h-40 bg-surface-container relative overflow-hidden">
+<img alt="Hand Tools" class="w-full h-full object-cover grayscale contrast-125" data-alt="A collection of traditional hand tools including wrenches, hammers, and screwdrivers organized in a high-quality leather tool roll. The scene is shot in a bright, minimalist workshop with natural light streaming across a wooden table. The photography follows a clean, industrial look with high contrast and sharp focus on the textures of wood, leather, and steel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7EsCWdJ6s2bOcg6hyhegUmDPA8gaQVxAF_jeA3XoX_h4Z97voJZ_eShSD3CLIgSx-rabzXzZgGod2r0CsqktnMChfs7ArE0Wno7lDZu4sc2j_sP_-VsslL51dhyX5Ia98DDTbTPNe7s7kLDUxDNpz7Oz2w3wkFOaYKkMov0qQhThrffDcSnWvXWryAVfhQO9Hl2-aMtS19Jj7DOMEEXVLdPEoCVLXrn8VWTbKkn2vXrKpkDO-xeqXYw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/60 to-transparent"></div>
+</div>
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-on-background">Hand Tools</h3>
+<span class="text-on-surface-variant font-label-md text-label-md">1,120 Items</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">Wrenches, hammers, manual saws, and precision measurement instruments.</p>
+<div class="flex gap-sm mt-auto">
+<button class="flex-1 bg-secondary text-on-secondary font-label-md text-label-md py-sm rounded hover:bg-on-background transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                        </button>
+<button class="px-md border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Category Card: Heavy Machinery -->
+<div class="bento-item bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="h-40 bg-surface-container relative overflow-hidden">
+<img alt="Heavy Machinery" class="w-full h-full object-cover grayscale contrast-125" data-alt="Detailed view of a massive yellow industrial excavator's hydraulic piston and arm in a construction site environment. The image uses a shallow depth of field to focus on the grit and mechanical complexity of the machinery. The overall mood is powerful and utilitarian, utilizing the corporate industrial color palette of steel grays and deep shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhukgUdqmQfDT9ogMJsF9LenO-Mk5-z90Q-JgQCrTbEcjDcnWd-rIij3pF3PdWMlSKd-7ZM2PYE9KS5ATw0wxw6qOjaRD_lAqpM4_NoUsaYhX2RVaqxe4x1zaFpu2Lrk5zZlI-qr3rkrj-efWs_GQaXq4fAGvBy8K69Zw6wNnhlY2rAz9UaWmeXJ9z87YnHWWpOFoFWcKGO7dxdytEaHo2o678I2OxfZw13G8SP8HNUlbaHHlQxgBKdQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/60 to-transparent"></div>
+</div>
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-on-background">Machinery</h3>
+<span class="text-on-surface-variant font-label-md text-label-md">124 Items</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">Excavators, forklifts, and large-scale industrial manufacturing equipment.</p>
+<div class="flex gap-sm mt-auto">
+<button class="flex-1 bg-secondary text-on-secondary font-label-md text-label-md py-sm rounded hover:bg-on-background transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                        </button>
+<button class="px-md border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Category Card: Safety Equipment -->
+<div class="bento-item bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="h-40 bg-surface-container relative overflow-hidden">
+<img alt="Safety Gear" class="w-full h-full object-cover grayscale contrast-125" data-alt="A clean, studio-lit photo of industrial safety gear including a hard hat, goggles, and high-visibility vest laid out on a sterile white surface. The composition is highly structured and professional, using sharp shadows to create depth. The color scheme is dominated by clean whites and deep charcoal grays with subtle industrial orange accents for safety markers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQsigqpjs8kSO_5rds258hcfuDOQPQB2XTnFRb2JNp7TsaZUMN9AEZeTkni5Q6OKiSWmCgQ1blzD-g35i5yDY1vM6YDH5BdywgxCKe81Pf2BZIiut_CP5YyJy2KB4Zk912RkuubXP5d988sYAVl1Vb7TSGLkMbEh7Vz09pZPS1dbaa9PlpSVIbivCEZfquGN5iaGbFCF54pWw-UDcqNodw5ZTgbfZkBS3IMIRwgWTy-H5OnlVXNvJ4kg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/60 to-transparent"></div>
+</div>
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-on-background">Safety Gear</h3>
+<span class="text-on-surface-variant font-label-md text-label-md">315 Items</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">Helmets, high-vis vests, respirators, and fall protection systems.</p>
+<div class="flex gap-sm mt-auto">
+<button class="flex-1 bg-secondary text-on-secondary font-label-md text-label-md py-sm rounded hover:bg-on-background transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                        </button>
+<button class="px-md border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Category Card: Plumbing -->
+<div class="bento-item bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="h-40 bg-surface-container relative overflow-hidden">
+<img alt="Plumbing" class="w-full h-full object-cover grayscale contrast-125" data-alt="An array of copper piping, connectors, and plumbing tools arranged artistically on a concrete background. The aesthetic is rugged and industrial, focusing on the warm copper tones against cold gray stone. The lighting is direct and hard, emphasizing the utilitarian nature of the hardware. The scene conveys reliability and professional craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLo-ooFHcZJmfD4Jo4wg-2jmkbvu9pWYDGfTmKnYDag_arFYzh9-tO-JhFDBn8XbfpZ1nkUh-hIiydXyKSBpPIPi35yn4gGGbtx9pFnvFH7BgWuwWuTTHGKKusNHsLam2phfQVQNEhOJB24Z3sZHTVj2H960gUWwszgL7wr7WCC_Dj5-lxe-m9zh7b75V6DZqLq1oopdK4Q0l9k0Ch16uEW9DwxhBB7Z3l0aUMxOkm8xY7AQI7sRxxjA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/60 to-transparent"></div>
+</div>
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-on-background">Plumbing</h3>
+<span class="text-on-surface-variant font-label-md text-label-md">192 Items</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">Pipe cutters, soldering kits, industrial pumps, and fittings.</p>
+<div class="flex gap-sm mt-auto">
+<button class="flex-1 bg-secondary text-on-secondary font-label-md text-label-md py-sm rounded hover:bg-on-background transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                        </button>
+<button class="px-md border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Add New Category Empty State -->
+<button class="bento-item border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-xl group transition-all hover:border-primary-container min-h-[300px]">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-md group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl group-hover:text-primary">add</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-surface-variant group-hover:text-primary transition-colors">New Category</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-sm">Define a new tool segment</p>
+</button>
+</div>
+<!-- Detailed Table View (Secondary Option) -->
+<section class="mt-xl">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-md text-headline-md text-on-background">Recent Activity</h3>
+<div class="flex gap-sm">
+<input class="bg-surface-container border-outline-variant text-body-sm p-sm rounded-lg w-64 focus:ring-primary focus:border-primary" placeholder="Search categories..." type="text"/>
+<button class="p-sm bg-surface-container border border-outline-variant rounded-lg hover:bg-surface-container-high">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container">
+<th class="p-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Category Name</th>
+<th class="p-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Inventory Count</th>
+<th class="p-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="p-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Last Modified</th>
+<th class="p-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-background">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-md font-semibold">Electric Handhelds</td>
+<td class="p-md">452</td>
+<td class="p-md">
+<span class="bg-green-100 text-green-800 px-sm py-1 rounded text-xs font-bold uppercase tracking-tighter">Active</span>
+</td>
+<td class="p-md text-on-surface-variant">Oct 24, 2024</td>
+<td class="p-md text-right">
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest/50">
+<td class="p-md font-semibold">Fasteners &amp; Adhesives</td>
+<td class="p-md">1,290</td>
+<td class="p-md">
+<span class="bg-green-100 text-green-800 px-sm py-1 rounded text-xs font-bold uppercase tracking-tighter">Active</span>
+</td>
+<td class="p-md text-on-surface-variant">Oct 22, 2024</td>
+<td class="p-md text-right">
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-md font-semibold">Welding Stations</td>
+<td class="p-md">38</td>
+<td class="p-md">
+<span class="bg-amber-100 text-amber-800 px-sm py-1 rounded text-xs font-bold uppercase tracking-tighter">Maintenance</span>
+</td>
+<td class="p-md text-on-surface-variant">Oct 19, 2024</td>
+<td class="p-md text-right">
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Footer -->
+<footer class="mt-xl flex flex-col md:flex-row justify-between items-center py-xl border-t border-outline-variant">
+<div class="mb-md md:mb-0">
+<span class="font-label-md text-label-md font-bold text-on-primary bg-secondary px-md py-1 rounded">ToolForge</span>
+<span class="ml-sm font-body-sm text-body-sm text-on-surface-variant">© 2024 ToolForge Marketplace. All rights reserved.</span>
+</div>
+<div class="flex gap-lg">
+<a class="font-body-sm text-body-sm text-secondary-fixed-dim hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-secondary-fixed-dim hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-secondary-fixed-dim hover:text-white transition-colors" href="#">Cookie Policy</a>
+</div>
+</footer>
+</main>
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('nav a').forEach(l => {
+                    l.classList.remove('text-primary-fixed', 'font-bold', 'bg-on-secondary-fixed-variant/20');
+                    l.classList.add('text-secondary-fixed-dim');
+                });
+                this.classList.add('text-primary-fixed', 'font-bold', 'bg-on-secondary-fixed-variant/20');
+                this.classList.remove('text-secondary-fixed-dim');
+            });
+        });
+    </script>
+</body></html>

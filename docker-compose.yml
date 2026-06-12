@@ -1,0 +1,72 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: herramientas-db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-herramientas_app}
+      POSTGRES_USER: ${DB_USER:-sys}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env or Coolify variables}
+    ports:
+      - "${DB_PORT_EXTERNAL:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - herramientas-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-sys} -d ${DB_NAME:-herramientas_app}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./herramientas-node-api
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: production
+    container_name: herramientas-api
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-herramientas_app}
+      DB_USER: ${DB_USER:-sys}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env or Coolify variables}
+      DB_SYNC_ALTER: ${DB_SYNC_ALTER:-false}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env or Coolify variables}
+      CORS_ORIGIN: ${CORS_ORIGIN:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - herramientas-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend-app
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ""
+    container_name: herramientas-frontend
+    environment:
+      NODE_ENV: production
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
+    networks:
+      - herramientas-network
+    restart: unless-stopped
+    
+volumes:
+  pgdata:
+    name: herramientas-pgdata
+
+networks:
+  herramientas-network:
+    name: ${COMPOSE_PROJECT_NAME:-herramientas-network}

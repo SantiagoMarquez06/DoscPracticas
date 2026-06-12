@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ToolForge Admin - Edit Product</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "primary": "#9d4300",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "secondary-fixed": "#dae2fd",
+                      "background": "#f7f9fb",
+                      "on-background": "#191c1e",
+                      "primary-fixed": "#ffdbca",
+                      "on-primary-container": "#582200",
+                      "surface-tint": "#9d4300",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "outline": "#8c7164",
+                      "primary-fixed-dim": "#ffb690",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f2f4f6",
+                      "outline-variant": "#e0c0b1",
+                      "secondary": "#565e74",
+                      "primary-container": "#f97316",
+                      "tertiary-fixed": "#d3e4fe",
+                      "surface-bright": "#f7f9fb",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#783200",
+                      "on-primary-fixed": "#341100",
+                      "surface-container": "#eceef0",
+                      "tertiary-container": "#8c9cb4",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed": "#131b2e",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-dim": "#d8dadc",
+                      "inverse-surface": "#2d3133",
+                      "tertiary": "#505f76",
+                      "surface-variant": "#e0e3e5",
+                      "on-primary": "#ffffff",
+                      "on-surface": "#191c1e",
+                      "on-surface-variant": "#584237",
+                      "on-secondary-container": "#5c647a",
+                      "surface-container-high": "#e6e8ea",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-tertiary-container": "#243348",
+                      "surface": "#f7f9fb",
+                      "inverse-primary": "#ffb690",
+                      "secondary-container": "#dae2fd",
+                      "on-secondary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "base": "4px",
+                      "gutter": "16px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "container-margin": "24px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "code": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "code": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F8FAFC;
+            color: #191c1e;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #9d4300 !important;
+            box-shadow: 0 0 0 1px #9d4300;
+        }
+        .zebra-table tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (Authority: JSON & Contextual Logic) -->
+<aside class="bg-secondary dark:bg-on-background text-primary dark:text-primary-fixed h-full w-64 fixed left-0 top-0 border-r border-outline-variant dark:border-outline flex flex-col p-md gap-md z-50">
+<div class="mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Admin Console</h1>
+<p class="font-label-md text-label-md opacity-70">Management Suite</p>
+</div>
+<nav class="flex-grow flex flex-col gap-sm">
+<!-- Mapping JSON tab_labels and tab_icons -->
+<a class="flex items-center gap-md px-md py-sm font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-md text-label-md text-primary-fixed font-bold bg-on-secondary-fixed-variant/20 rounded-lg transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                Inventory
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                Orders
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Customers
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-sm border-t border-white/10 pt-md">
+<a class="flex items-center gap-md px-md py-sm font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-grow p-xl max-w-7xl mx-auto w-full">
+<!-- Header -->
+<header class="mb-xl flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Inventory Management</h2>
+<nav class="flex items-center gap-base text-on-surface-variant font-body-sm text-body-sm mt-xs">
+<span>Tools</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Edit Product</span>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="px-lg py-sm border border-outline text-secondary font-label-md text-label-md rounded-lg hover:bg-surface-container transition-colors">
+                    Discard Changes
+                </button>
+<button class="px-lg py-sm bg-primary text-on-primary font-label-md text-label-md rounded-lg hover:opacity-90 transition-opacity flex items-center gap-sm shadow-sm">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                    Save Product
+                </button>
+</div>
+</header>
+<!-- Form Layout: Bento Style Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+<!-- Left Column: Primary Details -->
+<div class="lg:col-span-2 space-y-xl">
+<!-- Core Information Card -->
+<section class="bg-white border border-outline-variant p-lg rounded-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-lg border-b border-outline-variant pb-sm">Core Information</h3>
+<div class="space-y-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="product_name">Product Name</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg font-body-md text-body-md" id="product_name" placeholder="e.g. Industrial Hydraulic Press" type="text" value="Heavy-Duty Torque Wrench 250Nm"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="description">Description</label>
+<textarea class="w-full px-md py-sm border border-outline-variant rounded-lg font-body-md text-body-md resize-none" id="description" placeholder="Describe the tool's specifications, usage, and maintenance requirements..." rows="6">The Heavy-Duty Torque Wrench is engineered for industrial-scale automotive and aerospace applications. It features a chrome-vanadium steel construction with a high-contrast scale for easy reading even in low-light workshop environments. Precision calibrated to +/- 3% accuracy.</textarea>
+</div>
+</div>
+</section>
+<!-- Inventory & Pricing Card -->
+<section class="bg-white border border-outline-variant p-lg rounded-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-lg border-b border-outline-variant pb-sm">Inventory &amp; Pricing</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="price">Unit Price ($)</label>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full pl-lg pr-md py-sm border border-outline-variant rounded-lg font-body-md text-body-md" id="price" type="number" value="289.00"/>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="stock">Stock Quantity</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg font-body-md text-body-md" id="stock" type="number" value="42"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="category">Category</label>
+<select class="w-full px-md py-sm border border-outline-variant rounded-lg font-body-md text-body-md appearance-none bg-no-repeat bg-[right_1rem_center]" id="category" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')">
+<option value="hand-tools">Hand Tools</option>
+<option selected="" value="power-tools">Power Tools</option>
+<option value="heavy-machinery">Heavy Machinery</option>
+<option value="safety-gear">Safety Gear</option>
+<option value="measurement">Precision Measurement</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="sku">SKU Number</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg font-body-md text-body-md bg-surface-container-low" id="sku" readonly="" type="text" value="TF-TW-250-HD"/>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Media & Actions -->
+<div class="space-y-xl">
+<!-- Media Upload Card -->
+<section class="bg-white border border-outline-variant p-lg rounded-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-lg border-b border-outline-variant pb-sm">Product Image</h3>
+<div class="relative group aspect-[4/3] w-full rounded-lg border-2 border-dashed border-outline-variant overflow-hidden flex flex-col items-center justify-center bg-surface-container-lowest transition-colors hover:border-primary cursor-pointer">
+<img alt="Product Preview" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-40 transition-opacity" data-alt="A professional, high-resolution product photograph of a heavy-duty industrial torque wrench resting on a clean, dark slate workbench in a modern workshop. The lighting is crisp and directional, highlighting the metallic texture and precision laser-etched scale on the tool. The background is softly blurred, showing hints of organized tool racks, maintaining a focused and utilitarian industrial aesthetic with deep shadows and sharp highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbb3mNRvvdcQwfaY0vcqW8PdKvfqQim6zsCAbgoSyhtvtnD7aJc9RFj0eR4I9znS5kAAvnsdez4n73qNZyGBC8oy2dBZztgYrNhG8V7B2GPo4HPHDdafVXeFRLeniW4ap2RJBzgswkP6EqqwzHDShctYcu7OeNQr7GOTock-HYR8XLbmPq7eAKlHBoDB7eHUUXQaQ7IDkNaAMTxGylum11Vg-YbCS1J8aj4y50qMsE9pH8guu-53ZJKA"/>
+<div class="z-10 flex flex-col items-center gap-sm text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">upload_file</span>
+<span class="font-label-md text-label-md">Replace Image</span>
+</div>
+<!-- Overlay controls -->
+<div class="absolute bottom-md right-md flex gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-sm bg-white border border-outline-variant rounded-lg shadow-sm hover:text-error">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<p class="mt-md font-body-sm text-body-sm text-on-surface-variant">
+                        Recommended: 1200x900px, max 5MB. PNG or JPG.
+                    </p>
+</section>
+<!-- Status & Visibility Card -->
+<section class="bg-white border border-outline-variant p-lg rounded-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-lg border-b border-outline-variant pb-sm">Status</h3>
+<div class="space-y-md">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md">Published</span>
+<button class="w-12 h-6 bg-primary rounded-full relative transition-colors" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('bg-outline-variant')">
+<div class="absolute top-1 right-1 w-4 h-4 bg-white rounded-full transition-all" id="toggle-circle"></div>
+</button>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md">Featured on Homepage</span>
+<button class="w-12 h-6 bg-outline-variant rounded-full relative transition-colors" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('bg-outline-variant')">
+<div class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-all"></div>
+</button>
+</div>
+</div>
+<div class="mt-lg pt-lg border-t border-outline-variant">
+<div class="flex items-center gap-sm px-md py-sm bg-success/10 text-green-700 rounded-lg font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                            Inventory levels optimal
+                        </div>
+</div>
+</section>
+<!-- Helpful Tips -->
+<div class="p-lg bg-secondary/5 rounded-lg border border-secondary/10">
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-secondary">lightbulb</span>
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-label-md text-secondary">Admin Tip</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Adding a detailed description and precise weight/dimensions helps with automated shipping calculations.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Mobile Bottom Bar -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-outline-variant p-md flex gap-md z-40">
+<button class="flex-1 py-sm border border-outline text-secondary font-label-md text-label-md rounded-lg">Cancel</button>
+<button class="flex-1 py-sm bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm">Save Tool</button>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for the toggle
+        document.querySelectorAll('button[class*="w-12"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const circle = btn.querySelector('div');
+                if (circle.classList.contains('right-1')) {
+                    circle.classList.remove('right-1');
+                    circle.classList.add('left-1');
+                    btn.classList.remove('bg-primary');
+                    btn.classList.add('bg-outline-variant');
+                } else {
+                    circle.classList.remove('left-1');
+                    circle.classList.add('right-1');
+                    btn.classList.remove('bg-outline-variant');
+                    btn.classList.add('bg-primary');
+                }
+            });
+        });
+
+        // Placeholder for file upload interaction
+        document.querySelector('.group.aspect-\\[4\\/3\\]').addEventListener('click', () => {
+            console.log("Trigger native file picker...");
+        });
+    </script>
+</body></html>

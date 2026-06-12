@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ToolForge | Industrial Tool Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+        }
+        .industrial-gradient {
+            background: linear-gradient(135deg, #191c1e 0%, #565e74 100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "primary": "#9d4300",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "secondary-fixed": "#dae2fd",
+                      "background": "#f7f9fb",
+                      "on-background": "#191c1e",
+                      "primary-fixed": "#ffdbca",
+                      "on-primary-container": "#582200",
+                      "surface-tint": "#9d4300",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "outline": "#8c7164",
+                      "primary-fixed-dim": "#ffb690",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f2f4f6",
+                      "outline-variant": "#e0c0b1",
+                      "secondary": "#565e74",
+                      "primary-container": "#f97316",
+                      "tertiary-fixed": "#d3e4fe",
+                      "surface-bright": "#f7f9fb",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#783200",
+                      "on-primary-fixed": "#341100",
+                      "surface-container": "#eceef0",
+                      "tertiary-container": "#8c9cb4",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed": "#131b2e",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-dim": "#d8dadc",
+                      "inverse-surface": "#2d3133",
+                      "tertiary": "#505f76",
+                      "surface-variant": "#e0e3e5",
+                      "on-primary": "#ffffff",
+                      "on-surface": "#191c1e",
+                      "on-surface-variant": "#584237",
+                      "on-secondary-container": "#5c647a",
+                      "surface-container-high": "#e6e8ea",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-tertiary-container": "#243348",
+                      "surface": "#f7f9fb",
+                      "inverse-primary": "#ffb690",
+                      "secondary-container": "#dae2fd",
+                      "on-secondary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "base": "4px",
+                      "gutter": "16px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "container-margin": "24px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "code": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "code": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="bg-secondary dark:bg-on-background border-b border-outline-variant dark:border-outline fixed top-0 w-full z-50">
+<nav class="flex justify-between items-center w-full px-lg py-sm max-w-7xl mx-auto">
+<div class="flex items-center gap-xl">
+<span class="font-headline-md text-headline-md font-bold text-on-primary">ToolForge</span>
+<div class="hidden md:flex gap-lg items-center">
+<a class="text-primary-fixed font-bold border-b-2 border-primary-fixed pb-1 font-body-md text-body-md transition-colors" href="#">Marketplace</a>
+<a class="text-on-secondary dark:text-surface-variant hover:text-primary-fixed transition-colors font-body-md text-body-md transition-colors" href="#">Solutions</a>
+<a class="text-on-secondary dark:text-surface-variant hover:text-primary-fixed transition-colors font-body-md text-body-md transition-colors" href="#">Pricing</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-secondary dark:text-surface-variant font-label-md text-label-md px-md py-sm hover:opacity-80 transition-opacity">Contact Sales</button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-lg py-sm rounded transition-opacity active:opacity-80">Sign In</button>
+</div>
+</nav>
+</header>
+<main class="pt-[64px]">
+<!-- Hero Section -->
+<section class="relative min-h-[819px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover grayscale brightness-50" data-alt="A high-contrast industrial workshop interior featuring heavy machinery and metallic surfaces illuminated by dramatic orange spotlighting. The scene emphasizes professional precision and heavy-duty craftsmanship, utilizing a palette of deep charcoal and industrial orange. Sharp focus on mechanical details creates a feeling of authoritative power and reliability consistent with modern corporate design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcdRT-3_Ubu5TgpVHWztpHAb0bsFvpgu6jPsyqFCxQAdfrGRbX_HkFdDF745udcjV963Rd-LgDt-5ayOz0cU7zxullS2YhXfx4soIt1Dw-SJUS0Fs26DLIH9qiaqTV8PDFD1vZaAVvD02sYBDij0rGT_H4EEWDAH0VaWWotA6Gj8sA5J0XEnQ0F4oBTGLO7yxU4d6LvNLlsAEas8hshDQnCuAD01MEDdkmWJeYDJtLdQ74-cJy12h05A"/>
+</div>
+<div class="container max-w-7xl mx-auto px-lg relative z-10">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-white mb-md leading-tight">Potencia tu Trabajo con ToolForge</h1>
+<p class="font-body-lg text-body-lg text-secondary-fixed mb-xl opacity-90">Las mejores herramientas industriales en un solo lugar. Calidad profesional para proyectos que no aceptan fallos.</p>
+<div class="flex flex-wrap gap-md">
+<button class="bg-primary-container text-on-primary-container font-headline-md text-headline-md px-xl py-md rounded-lg font-bold hover:scale-105 transition-transform">
+                            Explorar Herramientas
+                        </button>
+<button class="border border-white text-white font-headline-md text-headline-md px-xl py-md rounded-lg font-bold hover:bg-white/10 transition-colors">
+                            Ver Catálogo
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-xl bg-surface-container-low border-b border-outline-variant">
+<div class="container max-w-7xl mx-auto px-lg">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-xl">
+<!-- Feature 1 -->
+<div class="flex gap-md p-lg bg-white border border-outline-variant hover:shadow-lg transition-all">
+<div class="text-primary">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-sm">Durability</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Herramientas forjadas para resistir las condiciones más extremas en el sector industrial.</p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex gap-md p-lg bg-white border border-outline-variant hover:shadow-lg transition-all">
+<div class="text-primary">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-sm">Fast Shipping</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Logística optimizada para asegurar que tu producción nunca se detenga por falta de equipo.</p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex gap-md p-lg bg-white border border-outline-variant hover:shadow-lg transition-all">
+<div class="text-primary">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">engineering</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-sm">Expert Support</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Asesoramiento técnico especializado para ayudarte a elegir la herramienta exacta para tu tarea.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tool Categories: Bento Grid -->
+<section class="py-xl">
+<div class="container max-w-7xl mx-auto px-lg">
+<h2 class="font-display-lg text-headline-lg mb-xl border-l-8 border-primary pl-md">Categorías Principales</h2>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter min-h-[600px]">
+<!-- Power Tools (Large) -->
+<div class="md:col-span-8 group relative overflow-hidden bg-secondary rounded-xl">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70" data-alt="Close-up of high-performance electric drills and power saws arranged neatly on a sleek, modern workstation. The lighting is crisp and cold, highlighting the metallic textures and the intense industrial orange accents on the tools. The overall aesthetic is professional and utilitarian, following a minimalist corporate style with a focus on powerful performance and heavy-duty reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA1CTobkV2ZyNpFXu-DNNUcwRYYCBXTS49LFNLmJGCm6Oh9Zc2hxZFix1qplrMOocXPhSUsLUoQD1jPxeOPx97_xDFlLfCK51N0OeTnVapOZn1705gtMsfB_Qw1xXlJf_YhegDxOi8zwW6gp8GQogeRP0sj9qGPtKufQm-iKQdK9yZ8wuidnOnqqGd48_atpxqw4F7Jr8uJYjUEVbd0379iLDm4e0aPgGJ5x--0JobetA8UZKJzokDZA"/>
+<div class="relative z-10 h-full p-xl flex flex-col justify-end bg-gradient-to-t from-on-background via-transparent">
+<h3 class="font-display-lg text-white mb-sm">Power Tools</h3>
+<p class="text-secondary-fixed mb-md max-w-md">Equipos eléctricos de alta potencia para aplicaciones industriales pesadas.</p>
+<button class="w-fit bg-primary text-white font-label-md text-label-md px-lg py-sm rounded">Explorar Selección</button>
+</div>
+</div>
+<!-- Hand Tools -->
+<div class="md:col-span-4 group relative overflow-hidden bg-primary rounded-xl">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-50" data-alt="Symmetric arrangement of premium chrome-plated wrenches and hand tools on a dark grey technical surface. The lighting creates sharp, bright highlights on the polished metal edges, emphasizing precision and durability. The composition is clean and organized, reflecting an authoritative industrial workspace environment with a sophisticated corporate-modern color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_Z8YAfRhwQWpTBhmS7pjBKRAPnWyzlEhtYaArXw3qqgTLMeBbSlRefwL6-xXtDFEbu8d3S_Z2vFsKz5TyT5BAs5ay9Cv94yIxQzL5m7JIrSRI6u-f8dcIEdwoTTs3THp724s67TmKdjcIJbIr7rKwyviI2MHIwFPKYRsex3tYDkcnNtkABzKCcnt8BLxKkRioFLLaChGW9Hf5wARuNt0Un1fvGQuPWxEaZI83mhxpAyPx0NoD9wqBXg"/>
+<div class="relative z-10 h-full p-xl flex flex-col justify-end bg-gradient-to-t from-on-background via-transparent">
+<h3 class="font-headline-md text-white mb-sm text-headline-md">Hand Tools</h3>
+<button class="w-fit bg-white text-on-background font-label-md text-label-md px-lg py-sm rounded">Ver Más</button>
+</div>
+</div>
+<!-- Measurement -->
+<div class="md:col-span-4 group relative overflow-hidden bg-surface-container-highest rounded-xl border border-outline-variant">
+<div class="p-xl flex flex-col h-full justify-between">
+<span class="material-symbols-outlined text-primary text-[40px]">straighten</span>
+<div>
+<h3 class="font-headline-md text-on-background mb-sm">Measurement</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-md">Instrumentos de precisión láser y calibración milimétrica.</p>
+<a class="text-primary font-bold hover:underline" href="#">Ver productos →</a>
+</div>
+</div>
+</div>
+<!-- Safety -->
+<div class="md:col-span-8 group relative overflow-hidden bg-on-background rounded-xl">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-40" data-alt="Industrial safety gear including high-visibility helmets and heavy-duty protective eyewear displayed in a stark, professional environment. The lighting is dramatic and low-key, with strong orange reflections that pop against a deep charcoal background. The mood conveys serious protection and professional safety standards within a high-end corporate industrial framework." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkYxB2yJe4pAKtJCaq8rzgSeeaGPaqqD1VtiQ_gxeeh52uQjeJ9wm_vSoKknLDfp10D2pMQnCoBFK2LxNqmr0HKs7PlZxvx5DOS3FCy2aizzrQwNh62qTyzgN7EsFl8ybpoqKu_ajWdX_Vk96vTHYb8KEcZzcmfj9xOmpx6W7Zy232xCHl-aQHCc4D72XuJCic4yY6qZoQngnZrR4ZYj6Yws2-8AMRJJQWgEG9L6w6jzdUWOPyIf-I7A"/>
+<div class="relative z-10 h-full p-xl flex flex-col justify-center items-center text-center">
+<h3 class="font-display-lg text-white mb-sm">Safety Gear</h3>
+<p class="text-secondary-fixed-dim font-body-md text-body-md mb-md max-w-lg">Protección avanzada para los entornos de trabajo más exigentes.</p>
+<button class="bg-primary-container text-on-primary-container font-label-md text-label-md px-xl py-md rounded-lg font-bold">Priorizar Seguridad</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dynamic Data Section: Featured Tools -->
+<section class="py-xl bg-white border-t border-outline-variant">
+<div class="container max-w-7xl mx-auto px-lg">
+<div class="flex justify-between items-end mb-xl">
+<div>
+<span class="text-primary font-label-md text-label-md uppercase tracking-widest">Lo más vendido</span>
+<h2 class="font-headline-lg text-headline-lg">Equipamiento Destacado</h2>
+</div>
+<button class="text-primary font-bold hover:gap-2 flex items-center transition-all">Ver todo el inventario <span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Tool Card 1 -->
+<div class="group border border-outline-variant hover:border-primary transition-colors flex flex-col">
+<div class="aspect-[4/3] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A professional-grade orange and black impact driver presented on a clean, grey industrial surface. The lighting is sharp and clinical, highlighting the robust build and high-quality materials of the tool. The image is styled for a corporate catalog, emphasizing utilitarian reliability and professional-grade performance with a clean, high-contrast aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA21JulWurkAJWYUeGR2Xo4rIhUi5JdLJMii_Ga8n9dhSs6pY_yphnok9pP1IcGvuwOSbz_klule0HKncsSG3ZcwQbSrBTXfQryX0NGG5iG5BI_EbhKMJ9gqiJEJExK81p5mg6gVH24-So7qdhDWh_Yo4Vpqk7CWsVP97qlj24q6_Vxyon2RiYSI4vEVw6npi1op2Y4fvbXoG8jgkjCrkyQ2TfabiNNivdS08AZ7S1RtODBnQcNNHTdtQ"/>
+</div>
+<div class="p-md flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs text-[10px] font-bold rounded uppercase">Power</span>
+<span class="text-primary font-bold text-headline-md">$249.99</span>
+</div>
+<h4 class="font-headline-md text-body-lg mb-sm">Impact Driver 18V Pro-Max</h4>
+<div class="flex items-center gap-xs text-secondary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="text-xs ml-sm">(48 reviews)</span>
+</div>
+</div>
+<div class="p-md pt-0">
+<button class="w-full bg-on-background text-white py-sm font-label-md text-label-md hover:bg-primary transition-colors">Añadir al Carrito</button>
+</div>
+</div>
+<!-- Tool Card 2 -->
+<div class="group border border-outline-variant hover:border-primary transition-colors flex flex-col">
+<div class="aspect-[4/3] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A professional heavy-duty tool chest made of dark steel with multiple drawers and orange accents, sitting in a modern industrial workshop environment. The lighting is dramatic, casting long shadows and highlighting the robust, utilitarian construction. The scene is clean, authoritative, and reflects a professional storage solution for high-end industrial equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7IAyO04sMk5V1z0xEBJV0tp5kRObcT7Yk6Ob4QzDn33DLWhPVFXqaA63yr_VhboM7kO1Rm49HNZamz6JiWTXER1-q0-Ibvv1l4oxiH5mCfJR7DeBKtS4DBXZUu0oBN1VhYB5Dt_7trEC04pSF5KEzvyc6bxf6NZqYX9d386NxkPDjBZ2Ga3SFgByvTwtR_CzzSpOJKXpDn7D52Nlwww8RGfhQOaT_tG8tNqxeZGvM7UHtZHfTqEDjhg"/>
+</div>
+<div class="p-md flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs text-[10px] font-bold rounded uppercase">Storage</span>
+<span class="text-primary font-bold text-headline-md">$899.00</span>
+</div>
+<h4 class="font-headline-md text-body-lg mb-sm">Heavy Duty Storage Cabinet</h4>
+<div class="flex items-center gap-xs text-secondary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs ml-sm">(12 reviews)</span>
+</div>
+</div>
+<div class="p-md pt-0">
+<button class="w-full bg-on-background text-white py-sm font-label-md text-label-md hover:bg-primary transition-colors">Añadir al Carrito</button>
+</div>
+</div>
+<!-- Tool Card 3 -->
+<div class="group border border-outline-variant hover:border-primary transition-colors flex flex-col">
+<div class="aspect-[4/3] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A digital laser distance meter held by a professional in a construction setting. The screen glows with precise blue numbers against a high-contrast industrial background. The lighting is sharp, emphasizing the tech-forward nature of modern measurement tools. The color palette is composed of professional greys and vibrant orange highlights, ensuring visual consistency with high-end corporate UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnWq9qjlt-_Sdc8OfzpYL1a-n5sAz4N6eALgPNYk2LTIT8r7qLNLQyo2CS_1R3Lw3Uz9hNh6cyS72YL21kgbkNHTNUpoEKcVyQOf9Dcmp64WBmooLwJ8C1wKpCajXAPZt2DtHqeStrZHOiNA4evFb8REON03rBHLBD4VNl7rASCoIg0uCyET2nyH62Rll1ojv1ClC0T6civrWHwOIRim2YaGD8G7pby3DN1NSDDk-ml60FMzNQQa1GgQ"/>
+</div>
+<div class="p-md flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs text-[10px] font-bold rounded uppercase">Precision</span>
+<span class="text-primary font-bold text-headline-md">$129.50</span>
+</div>
+<h4 class="font-headline-md text-body-lg mb-sm">Laser Distance Meter 100m</h4>
+<div class="flex items-center gap-xs text-secondary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
+<span class="text-xs ml-sm">(35 reviews)</span>
+</div>
+</div>
+<div class="p-md pt-0">
+<button class="w-full bg-on-background text-white py-sm font-label-md text-label-md hover:bg-primary transition-colors">Añadir al Carrito</button>
+</div>
+</div>
+<!-- Tool Card 4 -->
+<div class="group border border-outline-variant hover:border-primary transition-colors flex flex-col">
+<div class="aspect-[4/3] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Set of high-grade carbon steel pliers and cutters arranged on a metallic pegboard. The lighting is diffused but directional, creating soft shadows that give depth to the professional hand tools. The industrial orange handles contrast sharply with the dark grey metal, embodying the utilitarian and authoritative brand identity through precise, modern corporate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYLY0IWaFb1-O8AkSH-YzJlW5zRODe0uvNUpz9sUEAKo7XjOKYl6JbO7OgWDhVIaoW9-IeR9U3s8Yag9ftmCyo_mEkLwiPRbl4ruuTe9pJ-Gy6ycjT9EtqAn72aV9D8oB_ANx7RFZ0ASewPOKtjTh_hz-9O6BEuy2ag5x0vWcquAgnz4n_9oDaqrYuXLavUQb1sy5c6Gsvoek7UteieYAwwjezaq8m-nUWN3yonQiuEhdmYDuob6AIUw"/>
+</div>
+<div class="p-md flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs text-[10px] font-bold rounded uppercase">Manual</span>
+<span class="text-primary font-bold text-headline-md">$75.00</span>
+</div>
+<h4 class="font-headline-md text-body-lg mb-sm">Industrial Pliers Set (5pc)</h4>
+<div class="flex items-center gap-xs text-secondary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs ml-sm">(102 reviews)</span>
+</div>
+</div>
+<div class="p-md pt-0">
+<button class="w-full bg-on-background text-white py-sm font-label-md text-label-md hover:bg-primary transition-colors">Añadir al Carrito</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-xl industrial-gradient">
+<div class="container max-w-7xl mx-auto px-lg text-center">
+<h2 class="font-display-lg text-white mb-md">¿Eres un profesional del sector?</h2>
+<p class="text-secondary-fixed font-body-lg text-body-lg mb-xl max-w-2xl mx-auto opacity-80">Regístrate para obtener precios exclusivos por volumen, gestión de inventario y soporte prioritario 24/7.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-md">
+<button class="bg-primary text-white font-headline-md text-headline-md px-xl py-md rounded-lg font-bold shadow-lg">Crear Cuenta Profesional</button>
+<button class="bg-white text-on-background font-headline-md text-headline-md px-xl py-md rounded-lg font-bold">Contactar Ventas</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-secondary dark:bg-on-background border-t border-outline-variant dark:border-outline mt-xl">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-lg py-xl max-w-7xl mx-auto">
+<div class="mb-lg md:mb-0">
+<span class="font-label-md text-label-md font-bold text-on-primary">ToolForge</span>
+<p class="text-secondary-fixed-dim font-body-sm text-body-sm mt-sm">© 2024 ToolForge Marketplace. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-lg">
+<a class="text-secondary-fixed-dim font-body-sm text-body-sm hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="text-secondary-fixed-dim font-body-sm text-body-sm hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="text-secondary-fixed-dim font-body-sm text-body-sm hover:text-white transition-colors" href="#">Cookie Policy</a>
+<a class="text-secondary-fixed-dim font-body-sm text-body-sm hover:text-white transition-colors" href="#">Sitemap</a>
+</div>
+<div class="mt-lg md:mt-0 flex gap-md">
+<span class="material-symbols-outlined text-secondary-fixed-dim hover:text-white cursor-pointer transition-colors">face_nod</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim hover:text-white cursor-pointer transition-colors">linked_camera</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim hover:text-white cursor-pointer transition-colors">share</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and subtle scroll effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100');
+                        entry.target.classList.remove('opacity-0', 'translate-y-4');
+                    }
+                });
+            }, observerOptions);
+
+            // Add subtle entry animation classes to sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('transition-all', 'duration-700', 'ease-out');
+                // observer.observe(section); // Optional: enable if desired
+            });
+        });
+    </script>
+</body></html>

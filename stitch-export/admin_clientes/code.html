@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ToolForge Admin - Customers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "primary": "#9d4300",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "secondary-fixed": "#dae2fd",
+                    "background": "#f7f9fb",
+                    "on-background": "#191c1e",
+                    "primary-fixed": "#ffdbca",
+                    "on-primary-container": "#582200",
+                    "surface-tint": "#9d4300",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "outline": "#8c7164",
+                    "primary-fixed-dim": "#ffb690",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "outline-variant": "#e0c0b1",
+                    "secondary": "#565e74",
+                    "primary-container": "#f97316",
+                    "tertiary-fixed": "#d3e4fe",
+                    "surface-bright": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#783200",
+                    "on-primary-fixed": "#341100",
+                    "surface-container": "#eceef0",
+                    "tertiary-container": "#8c9cb4",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#131b2e",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-dim": "#d8dadc",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#505f76",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "on-surface-variant": "#584237",
+                    "on-secondary-container": "#5c647a",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary-container": "#243348",
+                    "surface": "#f7f9fb",
+                    "inverse-primary": "#ffb690",
+                    "secondary-container": "#dae2fd",
+                    "on-secondary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "sm": "8px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "code": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "code": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Zebra striping for tables per style guidance */
+        .zebra-table tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+        .zebra-table tr:hover {
+            background-color: #e2e8f0;
+            transition: background-color 0.2s;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar Anchor -->
+<aside class="bg-secondary dark:bg-on-background text-primary dark:text-primary-fixed h-full w-64 fixed left-0 top-0 border-r border-outline-variant dark:border-outline flex flex-col p-md gap-md z-50">
+<div class="mb-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Admin Console</h1>
+<p class="font-label-md text-label-md opacity-80">Management Suite</p>
+</div>
+<nav class="flex-grow flex flex-col gap-sm">
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span>Orders</span>
+</a>
+<!-- Active State: Customers -->
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-primary-fixed font-bold bg-on-secondary-fixed-variant/20 rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Customers</span>
+</a>
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<button class="mt-md bg-primary-container text-on-primary-container font-label-md text-label-md p-md rounded-lg flex items-center justify-center gap-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            Add New Tool
+        </button>
+<div class="mt-auto border-t border-outline-variant/20 pt-md flex flex-col gap-sm">
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-md p-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-grow p-xl">
+<!-- Header Section -->
+<header class="mb-xl flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Customers</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Monitor and manage your ToolForge client relations.</p>
+</div>
+<div class="flex gap-md">
+<div class="relative">
+<input class="bg-surface-container-lowest border border-outline-variant focus:ring-primary focus:border-primary rounded-lg py-sm px-xl pl-10 font-body-sm text-body-sm w-80" placeholder="Search customers..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2 text-on-surface-variant" data-icon="search">search</span>
+</div>
+<button class="bg-secondary text-on-secondary py-sm px-lg rounded-lg font-label-md text-label-md flex items-center gap-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                    Filter
+                </button>
+</div>
+</header>
+<!-- Stats Overview (Bento-style Grid) -->
+<div class="grid grid-cols-4 gap-lg mb-xl">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-sm">Total Users</p>
+<div class="flex items-center justify-between">
+<span class="font-display-lg text-headline-lg font-bold">12,482</span>
+<span class="text-primary-container material-symbols-outlined" data-icon="person">person</span>
+</div>
+<p class="text-green-600 font-label-md text-label-md mt-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+                    +12% from last month
+                </p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-sm">Active Now</p>
+<div class="flex items-center justify-between">
+<span class="font-display-lg text-headline-lg font-bold">1,024</span>
+<span class="text-secondary material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md mt-sm">Live data stream</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-sm">New Signups</p>
+<div class="flex items-center justify-between">
+<span class="font-display-lg text-headline-lg font-bold">84</span>
+<span class="text-primary material-symbols-outlined" data-icon="person_add">person_add</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md mt-sm">Last 24 hours</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-sm">Churn Rate</p>
+<div class="flex items-center justify-between">
+<span class="font-display-lg text-headline-lg font-bold">1.2%</span>
+<span class="text-error material-symbols-outlined" data-icon="show_chart">show_chart</span>
+</div>
+<p class="text-green-600 font-label-md text-label-md mt-sm">-0.3% improvement</p>
+</div>
+</div>
+<!-- Customer Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left zebra-table border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="p-lg font-label-md text-label-md text-on-surface-variant">
+<div class="flex items-center gap-xs">
+                                Name
+                                <span class="material-symbols-outlined text-xs" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</th>
+<th class="p-lg font-label-md text-label-md text-on-surface-variant">Email</th>
+<th class="p-lg font-label-md text-label-md text-on-surface-variant">Registration Date</th>
+<th class="p-lg font-label-md text-label-md text-on-surface-variant">Total Orders</th>
+<th class="p-lg font-label-md text-label-md text-on-surface-variant">Status</th>
+<th class="p-lg font-label-md text-label-md text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr>
+<td class="p-lg flex items-center gap-md">
+<img alt="Marcus" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A professional close-up headshot of a middle-aged male contractor with a friendly expression. He is wearing a heavy-duty denim work shirt against a blurred architectural workshop background. The lighting is crisp and natural, emphasizing a professional and trustworthy demeanor in a corporate industrial setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoafcfZPoMuCha6xPxgn1CL0KHOYhnmetesk9Jg2hOC7-7gfcMqsfVea5hlov0UunYfVqcZAA6jyAR4ZEMF_DUUdn_F1X8p0S5RVC5piJUBm37OeHiLqdq3n2zMsTBsmjJRNfJa4tXU7wJYWGduyr0-fZpw_WjNfWa3uUkcnHL_HUHrkKatwb9u06MH8Ht-ftps1HYS_UWAL_vu3Gryh8FwspZ7Xs48z0QdSghxH78OP_amN8snahCZg"/>
+<span class="font-semibold">Marcus Thorne</span>
+</td>
+<td class="p-lg text-on-surface-variant">m.thorne@heavygear.com</td>
+<td class="p-lg text-on-surface-variant">Oct 12, 2023</td>
+<td class="p-lg">42</td>
+<td class="p-lg">
+<span class="inline-flex items-center px-sm py-xs rounded bg-green-100 text-green-800 text-[12px] font-bold uppercase">Active</span>
+</td>
+<td class="p-lg text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+<tr>
+<td class="p-lg flex items-center gap-md">
+<img alt="Sarah" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A high-resolution portrait of a young female structural engineer smiling confidently at the camera. She has her hair tied back and is wearing a subtle orange safety vest over a professional grey blazer. The background is a clean, modern construction office with blueprints on the wall, rendered in a bright, airy corporate industrial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEKymdUOpBCV0yfNKfiOjh4f_IUTANm6gnX0Kfx6g0OSQzpdZ7HjyVGFZGOP0A3lMnynxIvXrjreJsRxvuYuHcC1aSrgqS9kNHT3umfeQaylDlBPw8hnqT1oxeFfHcKcBoOyu1K9tiWi_4v-FpMux5WtktsVOVY3NqXbJMJVV8aq5b8VYtNMjVQgTb7y32tLgp_APq9mcHPI54so4-OqxQQYqI05KJFrXBMnu3PrV0PuIFf5lMbnLR9Q"/>
+<span class="font-semibold">Sarah Jenkins</span>
+</td>
+<td class="p-lg text-on-surface-variant">jenkins.s@buildcorp.io</td>
+<td class="p-lg text-on-surface-variant">Jan 05, 2024</td>
+<td class="p-lg">18</td>
+<td class="p-lg">
+<span class="inline-flex items-center px-sm py-xs rounded bg-green-100 text-green-800 text-[12px] font-bold uppercase">Active</span>
+</td>
+<td class="p-lg text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+<tr>
+<td class="p-lg flex items-center gap-md">
+<img alt="David" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A sharp profile photo of a senior project manager with glasses and a thoughtful expression. He is dressed in a dark charcoal sweater that fits the corporate industrial aesthetic perfectly. The scene is lit with soft studio lighting that creates professional depth, highlighting his competence and authoritative presence in a modern workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXZLD0yQdDlx1JKRrYtOxB2sv6QM3eDr9N6x5Ss4vGnvoCIZKxtRfk31A7cCyg1-PoFjSelUYdtlmkReWvxPHndnIDQTtcIeZ0C9ZAyL-LTrcGbbW6iMqJm8A3jjplsS-PjoK-1Q5uInXE3-gMaO1h9QyGmmCaR3h1TbZQL_bLfvX8B-srh28ELUWcTRsGgsOzPewWlQ8EpFsWmRPE4_fkJt3awYAhS7BmdwVDdXj3AQkKP9EFL7zwYQ"/>
+<span class="font-semibold">David Chen</span>
+</td>
+<td class="p-lg text-on-surface-variant">dchen@metrotools.net</td>
+<td class="p-lg text-on-surface-variant">Nov 22, 2023</td>
+<td class="p-lg">0</td>
+<td class="p-lg">
+<span class="inline-flex items-center px-sm py-xs rounded bg-yellow-100 text-yellow-800 text-[12px] font-bold uppercase">Pending</span>
+</td>
+<td class="p-lg text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+<tr>
+<td class="p-lg flex items-center gap-md">
+<img alt="Elena" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A professional studio portrait of a woman of color, an executive for a large logistics firm, looking directly into the camera with a calm and determined gaze. She wears a clean white blouse and a minimalist necklace. The lighting is high-key and flattering, with a neutral off-white background that emphasizes the professional and authoritative brand personality of the tool marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0NtHFviNmDv0-mOfRrca5kS31OeOfM_P6fnT10FDkMlHZN0wK_oUR3XPItoI_RjXtHz_XWT0yJTwSsouSts51ckSGbi_Evd3sg8bxqNT_-003CF9npfn0mFT2AsW4zj2tXrkSOSQHUjofw7LBCFSTMSVKP0LNm6omE948tAVynH0-ycHcXk8HOAu0A2jrxOysty9dCoFBHR-5KaCi5_Wv6Dp9y5kVTyKSuWfHlJjJPpRWUi2V7xusFA"/>
+<span class="font-semibold">Elena Rodriguez</span>
+</td>
+<td class="p-lg text-on-surface-variant">elena.rod@logisticsplus.com</td>
+<td class="p-lg text-on-surface-variant">Feb 14, 2024</td>
+<td class="p-lg">127</td>
+<td class="p-lg">
+<span class="inline-flex items-center px-sm py-xs rounded bg-green-100 text-green-800 text-[12px] font-bold uppercase">Active</span>
+</td>
+<td class="p-lg text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+<tr>
+<td class="p-lg flex items-center gap-md">
+<img alt="Alice" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A portrait of a female industrial designer in her early thirties, featuring soft natural lighting from a nearby window. She is in a creative studio environment with industrial equipment visible in the far background. Her expression is approachable yet highly professional, wearing a black turtleneck that contrasts with the clean white surfaces of the modern corporate UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMv8gs1oo7sQMLcHRJwQ6QMe5g_5a6NMz7sfk-EVpTQ5zn-fZ1T99GpvIjRuCUtMOV0IGIwSBMOJ9nvGFQAqKM4KoNzRWvx-VoLuRJUmOx_UkOvFqgCFeR3It7NrzP1ehwAkoAHM4EYfd1MpPGRUUcS5CUVEJ1SSJOkHh62XP_50xygvS5LHwSh5Gk5ghbDkGDUcOEsqEbjZhZjIdXGMZ3t0rveUrNp65077e09K7Z1EElS18rdhFpHg"/>
+<span class="font-semibold">Alice Vane</span>
+</td>
+<td class="p-lg text-on-surface-variant">vane_a@designforge.com</td>
+<td class="p-lg text-on-surface-variant">May 02, 2023</td>
+<td class="p-lg">3</td>
+<td class="p-lg">
+<span class="inline-flex items-center px-sm py-xs rounded bg-red-100 text-red-800 text-[12px] font-bold uppercase">Inactive</span>
+</td>
+<td class="p-lg text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<footer class="p-lg bg-surface-container-low flex justify-between items-center border-t border-outline-variant">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 5 of 12,482 customers</span>
+<div class="flex gap-sm">
+<button class="p-sm rounded border border-outline-variant hover:bg-surface-container-highest transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="px-md py-sm rounded border border-primary bg-primary text-on-primary font-label-md text-label-md">1</button>
+<button class="px-md py-sm rounded border border-outline-variant hover:bg-surface-container-highest transition-colors font-label-md text-label-md">2</button>
+<button class="px-md py-sm rounded border border-outline-variant hover:bg-surface-container-highest transition-colors font-label-md text-label-md">3</button>
+<button class="p-sm rounded border border-outline-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</footer>
+</div>
+<!-- Secondary Information Section -->
+<section class="mt-xl grid grid-cols-2 gap-lg">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl">
+<h3 class="font-headline-md text-headline-md mb-md">Customer Growth</h3>
+<div class="h-48 w-full bg-surface-container-low rounded-lg relative overflow-hidden flex items-end px-md gap-base">
+<!-- Fake Chart Visual -->
+<div class="bg-primary-container w-full" style="height: 40%"></div>
+<div class="bg-primary-container w-full" style="height: 55%"></div>
+<div class="bg-primary-container w-full" style="height: 45%"></div>
+<div class="bg-primary-container w-full" style="height: 70%"></div>
+<div class="bg-primary-container w-full" style="height: 65%"></div>
+<div class="bg-primary-container w-full" style="height: 90%"></div>
+<div class="bg-primary-container w-full" style="height: 80%"></div>
+</div>
+<div class="mt-md flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span><span>JUL</span>
+</div>
+</div>
+<div class="bg-secondary text-on-secondary p-lg rounded-xl relative overflow-hidden group">
+<!-- Abstract Decorative Element -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
+<h3 class="font-headline-md text-headline-md mb-sm relative z-10">Export Customer Data</h3>
+<p class="font-body-md text-body-md opacity-80 mb-lg relative z-10">Generate detailed reports in CSV, PDF, or XLSX format for external auditing or marketing integration.</p>
+<div class="flex gap-md relative z-10">
+<button class="bg-primary-container text-on-primary-container py-md px-lg rounded-lg font-label-md text-label-md flex items-center gap-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                        Download Report
+                    </button>
+<button class="bg-transparent border border-white/30 py-md px-lg rounded-lg font-label-md text-label-md hover:bg-white/10 transition-all">
+                        Schedule Export
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simple hover effect for table rows
+            const rows = document.querySelectorAll('.zebra-table tbody tr');
+            rows.forEach(row => {
+                row.addEventListener('click', () => {
+                    console.log('Row clicked - could open customer detail drawer');
+                });
+            });
+
+            // FAB-style suppression logic check (per shared component rules)
+            // As this is a management list page, FAB for "Add Tool" is suppressed in favor of the sidebar CTA
+        });
+    </script>
+</body></html>

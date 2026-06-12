@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ToolForge | Admin Access</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "primary": "#9d4300",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "secondary-fixed": "#dae2fd",
+                    "background": "#f7f9fb",
+                    "on-background": "#191c1e",
+                    "primary-fixed": "#ffdbca",
+                    "on-primary-container": "#582200",
+                    "surface-tint": "#9d4300",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "outline": "#8c7164",
+                    "primary-fixed-dim": "#ffb690",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "outline-variant": "#e0c0b1",
+                    "secondary": "#565e74",
+                    "primary-container": "#f97316",
+                    "tertiary-fixed": "#d3e4fe",
+                    "surface-bright": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#783200",
+                    "on-primary-fixed": "#341100",
+                    "surface-container": "#eceef0",
+                    "tertiary-container": "#8c9cb4",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#131b2e",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-dim": "#d8dadc",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#505f76",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "on-surface-variant": "#584237",
+                    "on-secondary-container": "#5c647a",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary-container": "#243348",
+                    "surface": "#f7f9fb",
+                    "inverse-primary": "#ffb690",
+                    "secondary-container": "#dae2fd",
+                    "on-secondary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "sm": "8px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Inter', sans-serif;
+        }
+        .login-card {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .industrial-glow {
+            box-shadow: 0 0 40px -10px rgba(157, 67, 0, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
+<!-- Subtle Atmospheric Background -->
+<div class="fixed inset-0 z-0 pointer-events-none opacity-40">
+
+</div>
+<!-- Main Container -->
+<main class="relative z-10 w-full max-w-md px-md py-xl">
+<!-- Brand Header (Based on TopNavBar logic but centered for Login) -->
+<div class="flex flex-col items-center mb-xl">
+<div class="mb-sm">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="construction">construction</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-background tracking-tight">
+                ToolForge
+            </h1>
+<p class="font-body-sm text-body-sm text-secondary mt-xs">
+                Admin Console Management Suite
+            </p>
+</div>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-xl rounded-lg industrial-glow">
+<h2 class="font-headline-md text-headline-md text-on-background mb-lg">Sign In</h2>
+<form class="space-y-lg" id="loginForm">
+<!-- Email Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="email">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-secondary text-lg group-focus-within:text-primary transition-colors" data-icon="mail">mail</span>
+<input class="w-full pl-xl pr-md py-md bg-transparent border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md" id="email" name="email" placeholder="name@toolforge.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant" for="password">Password</label>
+<a class="text-xs font-semibold text-primary hover:underline" href="#">Forgot password?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-secondary text-lg group-focus-within:text-primary transition-colors" data-icon="lock">lock</span>
+<input class="w-full pl-xl pr-[50px] py-md bg-transparent border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-md top-1/2 -translate-y-1/2 text-secondary hover:text-on-background transition-colors" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="visibility" id="passwordToggleIcon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center gap-sm">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary" id="remember" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer select-none" for="remember">
+                        Remember me for 30 days
+                    </label>
+</div>
+<!-- Submit Button -->
+<button class="w-full bg-primary hover:bg-on-primary-fixed-variant text-on-primary font-bold py-md rounded transition-all transform active:scale-[0.98] flex items-center justify-center gap-sm" type="submit">
+<span class="font-label-md text-label-md uppercase tracking-wider">Sign In</span>
+<span class="material-symbols-outlined text-md" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- Bottom Note -->
+<div class="mt-xl pt-lg border-t border-outline-variant text-center">
+<p class="font-body-sm text-body-sm text-secondary">
+                    Restricted access. This terminal is monitored for security purposes.
+                </p>
+</div>
+</div>
+<!-- Footer (Partial implementation based on JSON Footer) -->
+<footer class="mt-xl text-center">
+<p class="font-body-sm text-body-sm text-secondary-fixed-dim">
+                © 2024 ToolForge Marketplace. All rights reserved.
+            </p>
+<div class="flex justify-center gap-md mt-sm">
+<a class="font-body-sm text-body-sm text-secondary-fixed-dim hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<span class="text-outline-variant">|</span>
+<a class="font-body-sm text-body-sm text-secondary-fixed-dim hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        function togglePassword() {
+            const pwdInput = document.getElementById('password');
+            const icon = document.getElementById('passwordToggleIcon');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                pwdInput.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalContent = btn.innerHTML;
+            
+            // Industrial Loading State
+            btn.disabled = true;
+            btn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span class="ml-2 font-label-md text-label-md">Authenticating...</span>
+            `;
+            
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                // Redirect simulation
+                console.log('Login logic triggered');
+            }, 1500);
+        });
+    </script>
+</body></html>

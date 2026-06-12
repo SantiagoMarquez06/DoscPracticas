@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ToolForge | Inventory Management</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "primary": "#9d4300",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "secondary-fixed": "#dae2fd",
+                    "background": "#f7f9fb",
+                    "on-background": "#191c1e",
+                    "primary-fixed": "#ffdbca",
+                    "on-primary-container": "#582200",
+                    "surface-tint": "#9d4300",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "outline": "#8c7164",
+                    "primary-fixed-dim": "#ffb690",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "outline-variant": "#e0c0b1",
+                    "secondary": "#565e74",
+                    "primary-container": "#f97316",
+                    "tertiary-fixed": "#d3e4fe",
+                    "surface-bright": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#783200",
+                    "on-primary-fixed": "#341100",
+                    "surface-container": "#eceef0",
+                    "tertiary-container": "#8c9cb4",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#131b2e",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-dim": "#d8dadc",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#505f76",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "on-surface-variant": "#584237",
+                    "on-secondary-container": "#5c647a",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary-container": "#243348",
+                    "surface": "#f7f9fb",
+                    "inverse-primary": "#ffb690",
+                    "secondary-container": "#dae2fd",
+                    "on-secondary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "sm": "8px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "code": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "code": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .table-row-hover:hover { background-color: #f2f4f6; }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- SideNavBar Anchor -->
+<aside class="bg-secondary dark:bg-on-background h-full w-64 fixed left-0 top-0 border-r border-outline-variant dark:border-outline flex flex-col h-full p-md gap-md sidebar-transition z-50" id="sidebar">
+<div class="mb-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">ToolForge</h1>
+<p class="font-label-md text-label-md text-secondary-fixed-dim">Management Suite</p>
+</div>
+<div class="flex items-center gap-sm mb-lg p-sm bg-on-secondary-fixed-variant/10 rounded-lg">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="admin_panel_settings">admin_panel_settings</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-white">Admin Profile</p>
+<p class="text-[10px] uppercase tracking-wider text-secondary-fixed-dim">System Root</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-sm px-sm py-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Active State Logic: Inventory is current page -->
+<a class="flex items-center gap-sm px-sm py-md font-label-md text-label-md text-primary-fixed font-bold bg-on-secondary-fixed-variant/20 rounded-lg active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span>Orders</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Customers</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-md font-label-md text-label-md text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/10 hover:text-white transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-on-secondary-fixed-variant/20 pt-md space-y-1">
+<a class="flex items-center gap-sm px-sm py-sm font-label-md text-label-md text-secondary-fixed-dim hover:text-white" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-sm font-label-md text-label-md text-secondary-fixed-dim hover:text-white" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen p-lg max-w-[1600px]">
+<!-- Header Actions Area -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md mb-xl">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Inventory Management</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage and track your tool marketplace stock and pricing.</p>
+</div>
+<button class="bg-primary-container text-white px-lg py-md rounded-lg font-label-md text-label-md flex items-center gap-sm shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Add New Tool
+            </button>
+</header>
+<!-- Stats Bar -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-xl">
+<div class="bg-surface-container-lowest border border-outline-variant p-md flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Total Items</p>
+<p class="font-headline-md text-headline-md text-on-surface">1,284</p>
+</div>
+<span class="material-symbols-outlined text-primary p-sm bg-primary-fixed rounded-full" data-icon="construction">construction</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Low Stock</p>
+<p class="font-headline-md text-headline-md text-error">12</p>
+</div>
+<span class="material-symbols-outlined text-error p-sm bg-error-container rounded-full" data-icon="warning">warning</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Categories</p>
+<p class="font-headline-md text-headline-md text-on-surface">24</p>
+</div>
+<span class="material-symbols-outlined text-secondary p-sm bg-secondary-container rounded-full" data-icon="category">category</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Inventory Value</p>
+<p class="font-headline-md text-headline-md text-on-surface">$142k</p>
+</div>
+<span class="material-symbols-outlined text-primary p-sm bg-primary-fixed rounded-full" data-icon="payments">payments</span>
+</div>
+</div>
+<!-- Table Controls -->
+<div class="bg-white border border-outline-variant p-md flex flex-wrap items-center justify-between gap-md mb-xs">
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-xl pr-md py-sm border border-outline-variant rounded focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body-sm text-body-sm" placeholder="Search by tool name, SKU, or category..." type="text"/>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs px-md py-sm border border-outline-variant font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+                    Filter
+                </button>
+<button class="flex items-center gap-xs px-md py-sm border border-outline-variant font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                    Export CSV
+                </button>
+</div>
+</div>
+<!-- CRUD Table -->
+<div class="bg-white border border-outline-variant overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-md py-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Image</th>
+<th class="px-md py-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Product Name</th>
+<th class="px-md py-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Category</th>
+<th class="px-md py-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Stock</th>
+<th class="px-md py-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Price</th>
+<th class="px-md py-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-md py-md">
+<img alt="Hammer" class="w-12 h-12 object-cover border border-outline-variant rounded" data-alt="A professional-grade high-carbon steel framing hammer with a textured ergonomic rubber grip, photographed in a crisp studio lighting setup. The tool is presented at a 45-degree angle against a neutral grey background, highlighting its metallic sheen and rugged texture. The image follows a modern corporate industrial aesthetic with sharp focus and high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBamqnt3lVvGqsdkmONoc5oiwh1gSP6csZCWccjAEEsaR8f_Pdd32wGRJs-oyj7zGEz-2voEgwZBHr42V-bA3PUganZFCjqbqY_7Z__VMiNLPcPwqdo_IF2lR-2z2W5ZgWnlUtMj9WxzZ5YDWvIbHG7ZoH2-N4Ao8F9AkyO6negmfCmyQ4KINhM4op80nG4OCgq4YfMtG1vQuXkfY_wzghI9oM559GQn2JYOKzUmQzZVmGu7nJGH85iVA"/>
+</td>
+<td class="px-md py-md">
+<p class="font-label-md text-label-md text-on-surface">Industrial Steel Sledgehammer</p>
+<p class="text-[12px] text-outline font-code">SKU: TF-SH-001</p>
+</td>
+<td class="px-md py-md">
+<span class="px-sm py-base bg-secondary-container text-on-secondary-container font-label-md text-[11px] rounded">HEAVY DUTY</span>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<p class="font-body-md text-body-md">42</p>
+<span class="px-sm py-base bg-green-100 text-green-800 text-[10px] font-bold rounded">IN STOCK</span>
+</div>
+</td>
+<td class="px-md py-md font-body-md text-body-md font-semibold">$89.99</td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end gap-sm">
+<button class="p-sm hover:bg-primary-fixed rounded-lg text-primary transition-colors active:scale-90" title="Edit">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-sm hover:bg-error-container rounded-lg text-error transition-colors active:scale-90" title="Delete">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-md py-md">
+<img alt="Drill" class="w-12 h-12 object-cover border border-outline-variant rounded" data-alt="A powerful 18V cordless brushless impact drill in Industrial Orange and charcoal black colors, shown with its battery pack attached. The lighting is bright and directional, emphasizing the durable plastic housing and metallic chuck. It is positioned centrally on a white industrial surface, conveying a sense of authoritative quality and professional performance in a tool management context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc9vjgCSOUy_mp6iq_-fD_b4Fnboc-hVanTKvF19JDrJrc5T-EfEW-gq2HdYrrtBC9WQA9uJB8_49VQpB3pQ4hFzC4At382CIR3CQCGXO3d0aaS5_27El9I2iAY-o-ywoAESYX2YhGm38Y8kOfvcLdSXLGseMMQXjSXDcVJ51zVkAEbgnXGt1gTFaX2TV0IiR4SxZ1bMKkMAAuJ_ILavuGYZ15O28RKZLQJAvVGyn4_Wa3a6Vr99nxcQ"/>
+</td>
+<td class="px-md py-md">
+<p class="font-label-md text-label-md text-on-surface">Vortex Brushless Impact Drill</p>
+<p class="text-[12px] text-outline font-code">SKU: TF-DR-992</p>
+</td>
+<td class="px-md py-md">
+<span class="px-sm py-base bg-secondary-container text-on-secondary-container font-label-md text-[11px] rounded">POWER TOOLS</span>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<p class="font-body-md text-body-md">8</p>
+<span class="px-sm py-base bg-orange-100 text-orange-800 text-[10px] font-bold rounded">LOW STOCK</span>
+</div>
+</td>
+<td class="px-md py-md font-body-md text-body-md font-semibold">$245.00</td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end gap-sm">
+<button class="p-sm hover:bg-primary-fixed rounded-lg text-primary transition-colors" title="Edit">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-sm hover:bg-error-container rounded-lg text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-md py-md">
+<img alt="Safety Set" class="w-12 h-12 object-cover border border-outline-variant rounded" data-alt="A professional safety gear set including a matte black hard hat, clear impact-resistant goggles, and heavy-duty leather work gloves arranged neatly. The composition is clean and structured, utilizing a 12-column grid-like arrangement. The lighting is soft but high-contrast, highlighting the textures of safety equipment with a modern corporate utilitarian vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs-PqHULmk0QjcmTUvw3JzruTgfl-4SM1hw47L9oUIXi7JJTrS5_yaTO6lOrsXf-B1D37PybuZIDct6ueMyi0yo-9lbK2Oly5ekaxpYUtaLavCSJILXhSLv1Uq59byczylMaEZS4nq7QzOZ86BuyR8wbxF9SVnN3BbN_XWZFl3y36_n2c31v0osF8qIMRtRSb3IaaZ-iOAWj-VP_81gXddQ0nXAoZiKnEYWDpJhCavmLl0HSzI5cf6zA"/>
+</td>
+<td class="px-md py-md">
+<p class="font-label-md text-label-md text-on-surface">Pro-Guard Safety Kit</p>
+<p class="text-[12px] text-outline font-code">SKU: TF-SF-202</p>
+</td>
+<td class="px-md py-md">
+<span class="px-sm py-base bg-secondary-container text-on-secondary-container font-label-md text-[11px] rounded">PROTECTION</span>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<p class="font-body-md text-body-md">156</p>
+<span class="px-sm py-base bg-green-100 text-green-800 text-[10px] font-bold rounded">IN STOCK</span>
+</div>
+</td>
+<td class="px-md py-md font-body-md text-body-md font-semibold">$45.50</td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end gap-sm">
+<button class="p-sm hover:bg-primary-fixed rounded-lg text-primary transition-colors" title="Edit">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-sm hover:bg-error-container rounded-lg text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-md py-md">
+<img alt="Level" class="w-12 h-12 object-cover border border-outline-variant rounded" data-alt="A 24-inch magnetic digital spirit level with a bright LCD display and Industrial Orange trim. The tool is placed on a clean blueprints sheet in a bright, modern architecture office setting. The lighting is crisp, professional and airy, emphasizing the precision and authoritative engineering of the tool, consistent with high-end dashboard design aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIKLSdTWfj3pgoy5dwmv0YBEqU58TIoaqAtTSBKofjPI0e92wWy5caMxXwYdgwUNZrRPrxLBkgGoPsyOK_8W0oinftPnUqQ0pip3MJgXtBJT2O8RRTxzA9WUYTIu2U1YazgJ_r5RjPrHAAktHvaGFC-x7D_OywgaV0-Xl0Ft71SlTb0WxL4o8hiV7BKH-_n84a7y1QAbVF7nBM4wcUmKZn9nYbFXqVDk_PCk59yeXYgKTa00U03B7T9A"/>
+</td>
+<td class="px-md py-md">
+<p class="font-label-md text-label-md text-on-surface">Precision Digital Level</p>
+<p class="text-[12px] text-outline font-code">SKU: TF-ME-054</p>
+</td>
+<td class="px-md py-md">
+<span class="px-sm py-base bg-secondary-container text-on-secondary-container font-label-md text-[11px] rounded">MEASUREMENT</span>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<p class="font-body-md text-body-md">0</p>
+<span class="px-sm py-base bg-red-100 text-red-800 text-[10px] font-bold rounded">OUT OF STOCK</span>
+</div>
+</td>
+<td class="px-md py-md font-body-md text-body-md font-semibold">$112.00</td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end gap-sm">
+<button class="p-sm hover:bg-primary-fixed rounded-lg text-primary transition-colors" title="Edit">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-sm hover:bg-error-container rounded-lg text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-md py-md flex items-center justify-between bg-surface-container-low border-t border-outline-variant">
+<p class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 4 of 1,284 entries</p>
+<div class="flex gap-base">
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-white transition-colors rounded">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white font-label-md text-label-md rounded">1</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-white transition-colors rounded">2</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-white transition-colors rounded">3</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-white transition-colors rounded">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual Toast Notification (Interaction Demo) -->
+<div class="fixed bottom-lg right-lg bg-inverse-surface text-inverse-on-surface px-lg py-md rounded-lg shadow-xl translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-sm z-[100]" id="toast">
+<span class="material-symbols-outlined text-green-400" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="font-label-md text-label-md">Item successfully updated.</p>
+</div>
+<script>
+        // Simple Interaction logic
+        const editButtons = document.querySelectorAll('[title="Edit"]');
+        const toast = document.getElementById('toast');
+
+        editButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                toast.classList.remove('translate-y-24', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24', 'opacity-0');
+                }, 3000);
+            });
+        });
+
+        // Search highlight mock
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(term) ? '' : 'none';
+            });
+        });
+    </script>
+</body></html>
